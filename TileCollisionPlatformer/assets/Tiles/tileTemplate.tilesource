@@ -1,0 +1,9 @@
+image: "/assets/Tiles/every-tile-ever.png"
+tile_width: 16
+tile_height: 16
+tile_margin: 0
+tile_spacing: 0
+collision: ""
+material_tag: "tile"
+extrude_borders: 0
+inner_padding: 0

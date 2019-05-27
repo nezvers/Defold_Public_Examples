@@ -1,0 +1,29 @@
+function init(self)
+	msg.post("@render:", "clear_color", { color = vmath.vector4(44/255, 232/255, 245/255, 0) } ) --BACKGROUND COLOR
+	msg.post("@render:", hash("use_camera_projection"))
+	msg.post("@render:", hash("set_view_projection"), {id = hash('/render'), view = vmath.matrix4(), projection = vmath.matrix4_orthographic(0, 320, 0, 180, -1, 1) })
+end
+
+function final(self)
+	--msg.post("#camera", "release_camera_focus")
+end
+
+function update(self, dt)
+	-- Add update code here
+	-- Remove this function if not needed
+end
+
+function on_message(self, message_id, message, sender)
+	-- Add message-handling code here
+	-- Remove this function if not needed
+end
+
+function on_input(self, action_id, action)
+	--local tile = tilemap.get_tile("/background#level", "layer1", action.x, action.y)
+	--print(tile)
+end
+
+function on_reload(self)
+	-- Add reload-handling code here
+	-- Remove this function if not needed
+end
