@@ -5,5 +5,5 @@ tile_margin: 0
 tile_spacing: 0
 collision: ""
 material_tag: "tile"
-extrude_borders: 0
+extrude_borders: 1
 inner_padding: 0

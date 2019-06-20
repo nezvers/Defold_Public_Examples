@@ -1,0 +1,36 @@
+require "true_tile_collision.true_tile_collision"
+
+function init(self)
+	local url = msg.url()								--Physics system need object url
+	local id = go.get_id(".")							--Probably will be removed because not used in physics system
+
+	init_physics(self, url, "default:/background#tiles", "collision", 16, 1, 5, 0.2)
+	set_hitbox(self, 5, -5, 15, -1)
+	self.H_DIR = 1
+end
+
+function update(self, dt)
+	--PHYSICS
+	if self.H_DIR==1 then
+		button_right(self)
+	else
+		button_left(self)
+	end
+	physics_update_walker_dt(self, dt)
+
+	--TURN AROUND
+	if self.trig_wall then
+		self.H_DIR = self.H_DIR * -1
+	elseif self.trig_cliff then					--Hit the wall - turn around
+		self.H_DIR = self.H_DIR * -1
+	end
+
+	--SPRITE = simple flip
+	if not self.on_ledge and not self.wallsliding then
+		if self.xinput==1 then
+			sprite.set_hflip("#sprite", false)
+		elseif self.xinput==-1 then
+			sprite.set_hflip("#sprite", true)
+		end
+	end
+end

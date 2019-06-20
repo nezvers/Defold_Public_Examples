@@ -1,0 +1,78 @@
+require "true_tile_collision.true_tile_collision"
+
+--Pre-Hashing input buttons
+local up     = hash("up")
+local down   = hash("down")
+local left   = hash("left")
+local right  = hash("right")
+local jump   = hash("jump")
+local action = hash("action")
+local start  = hash("start")
+
+function init(self)
+	msg.post(".", "acquire_input_focus")				--Enable inputs for player
+	local url = msg.url()								--Physics system need object url
+	
+	init_physics(self, url, "default:/background#tiles", "collision", 16, 2, 5, 0.2)
+	set_hitbox(self, 5, -5, 15, -1)
+
+	--debug_on(false)									--Remove comment symbols to enable gui debug overlay
+end
+
+function final(self)
+	msg.post(".", "release_input_focus")				--Disable input upon deletion of the object
+end
+
+function update(self, dt)
+	--PHYSICS
+	physics_update_platformer_block(self, dt)
+	
+	
+	--CAMERA = WORLD
+	self.WORLD_POS = lerp(self.WORLD_POS, self.START_POS - self.POS, 0.1)
+	go.set_position(round_2d_n(self.WORLD_POS, 1/3), "default:/world")
+
+	--SPRITE = simple flip
+	if not self.on_ledge and not self.wallsliding then
+		if self.xinput==1 then
+			sprite.set_hflip("#sprite", false)
+		elseif self.xinput==-1 then
+			sprite.set_hflip("#sprite", true)
+		end
+	end
+end
+
+function on_message(self, message_id, message, sender)
+	--
+end
+
+function on_input(self, action_id, action)
+	-- save all buttons in one variable using bitwise
+	if action_id == up then
+		button_up(self)
+	elseif action_id == down   then
+		button_down(self)
+	elseif action_id == left   then
+		button_left(self)
+	elseif action_id == right  then
+		button_right(self)
+	elseif action_id == jump   then
+		button_jump(self)
+	elseif action_id == action then
+		button_action(self)
+	elseif action_id == start  then
+		button_start(self)
+	elseif action_id == hash("click") then
+		--if -1 then print("true") end
+	elseif action_id == hash("restart") then			--F1
+		go.set_position(self.START_POS, self.URL)
+		self.POS = go.get_position(self.URL)
+	elseif action_id == hash("debug") then				--F2
+		debug_on(true)
+	end
+end
+
+function on_reload(self)
+	-- Add reload-handling code here
+	-- Remove this function if not needed
+end

@@ -1,0 +1,10 @@
+function init(self)
+	msg.post(".", "acquire_input_focus")
+	print(msg.url())
+end
+
+function on_input(self, action_id, action)
+	if action_id == hash("quit") and action.released then
+		msg.post("main:/controller#controller", "show_menu")
+	end
+end

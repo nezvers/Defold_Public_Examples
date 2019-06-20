@@ -12,12 +12,10 @@ local start  = hash("start")
 function init(self)
 	msg.post(".", "acquire_input_focus")				--Enable inputs for player
 	local url = msg.url()								--Physics system need object url
-	local id = go.get_id(".")							--Probably will be removed because not used in physics system
 	
-			  --(inst, id, url, solidMap, 				   solidLayer,  tile_size, run_maxspeed, jump_speed, gravity)
-	init_physics(self, id, url, "/level/background#tiles", "collision", 16, 	   2, 			 5, 		 0.2)
+	init_physics(self, url, "default:/background#tiles", "collision", 16, 2, 0, 0)
 	set_hitbox(self, 5, -5, 15, -1)
-	
+
 	--debug_on(false)									--Remove comment symbols to enable gui debug overlay
 end
 
@@ -27,12 +25,12 @@ end
 
 function update(self, dt)
 	--PHYSICS
-	physics_update_platformer_dt(self, dt)
+	physics_update_topdown(self, dt)
 	
 	--CAMERA = WORLD
-	self.WORLD_POS = lerp(self.WORLD_POS, self.START_POS - self.MY_POS, 0.1)
-	go.set_position(round_2d_n(self.WORLD_POS, 0.25), "/level/world")
-	
+	self.WORLD_POS = lerp(self.WORLD_POS, self.START_POS - self.POS, 0.1)
+	go.set_position(round_2d_n(self.WORLD_POS, 1/3), "default:/world")
+
 	--SPRITE = simple flip
 	if not self.on_ledge and not self.wallsliding then
 		if self.xinput==1 then
@@ -66,8 +64,8 @@ function on_input(self, action_id, action)
 	elseif action_id == hash("click") then
 		--if -1 then print("true") end
 	elseif action_id == hash("restart") then			--F1
-		go.set_position(self.START_POS, self.MY_URL)
-		self.MY_POS = go.get_position(self.MY_URL)
+		go.set_position(self.START_POS, self.URL)
+		self.POS = go.get_position(self.URL)
 	elseif action_id == hash("debug") then				--F2
 		debug_on(true)
 	end

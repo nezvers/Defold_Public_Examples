@@ -5,12 +5,12 @@ main_collection = /main/main.collectionc
 shared_state = 1
 
 [display]
-width = 1280
-height = 720
+width = 960
+height = 540
 high_dpi = 0
 
 [project]
-title = TileCollisionPlatformer
+title = TrueTileCollision_example
 
 [graphics]
 default_texture_min_filter = nearest

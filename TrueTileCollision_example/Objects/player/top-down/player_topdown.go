@@ -1,6 +1,6 @@
 components {
   id: "player"
-  component: "/creatures/player/player.script"
+  component: "/Objects/player/top-down/player_topdown.script"
   position {
     x: 0.0
     y: 0.0
@@ -16,7 +16,7 @@ components {
 embedded_components {
   id: "sprite"
   type: "sprite"
-  data: "tile_set: \"/creatures/player/blocky.atlas\"\n"
+  data: "tile_set: \"/Objects/player/blocky.atlas\"\n"
   "default_animation: \"idle\"\n"
   "material: \"/builtins/materials/sprite.material\"\n"
   "blend_mode: BLEND_MODE_ALPHA\n"

@@ -1,0 +1,27 @@
+require "true_tile_collision.true_tile_collision"
+
+go.property("width", 16)
+go.property("height", 16)
+go.property("moveXtiles", 0)
+go.property("moveYtiles", 0)
+go.property("moveTimeSeconds", 0)
+go.property("offset", vmath.vector3(0, 0, 0))
+
+function init(self)
+	local url = msg.url()
+	init_moving_platform(self, url, self.width, self.height, self.moveXtiles, self.moveYtiles, self.moveTimeSeconds, self.offset)
+end
+
+function final(self)
+	--
+end
+
+function update(self, dt)
+	
+	physics_update_moving_platform(self, dt)
+end
+
+
+function on_reload(self)
+	--
+end
