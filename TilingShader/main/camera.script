@@ -1,0 +1,10 @@
+function init(self)
+	msg.post("@render:", "clear_color", { color = vmath.vector4(44/255, 232/255, 245/255, 0) } ) --BACKGROUND COLOR
+	msg.post("@render:", hash("use_camera_projection"))
+	--SORRY BUT I STILL DON'T KNOW HOW TO SET UP A CAMERA :(
+	msg.post("@render:", hash("set_view_projection"), {id = hash('/render'), view = vmath.matrix4(), projection = vmath.matrix4_orthographic(0, 384, 0, 216, -1, 1) })
+end
+
+function final(self)
+	msg.post("#camera", "release_camera_focus")
+end

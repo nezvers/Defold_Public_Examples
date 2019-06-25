@@ -33,9 +33,9 @@ function update(self, dt)
 
 	--SPRITE = simple flip
 	if not self.on_ledge and not self.wallsliding then
-		if self.xinput==1 then
+		if self.dir_input.x>0 then							--turn sprite to the right
 			sprite.set_hflip("#sprite", false)
-		elseif self.xinput==-1 then
+		elseif self.dir_input.x<0 then						--Turn sprite to the left
 			sprite.set_hflip("#sprite", true)
 		end
 	end

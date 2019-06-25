@@ -1,0 +1,49 @@
+--
+--		IMPORTANT!!!
+--		In atlas change extrude border to 0
+--
+--		Assets - https://jesse-m.itch.io/jungle-pack
+--
+
+
+go.property("xSpeed", 1)																			--Parallax speed in editor
+go.property("ySpeed", 1)																			--Parallax speed in editor
+local sprite_size = vmath.vector3(1,1,1)															--original size
+local atlas_size = vmath.vector3(1,1,1)																--size in atlas (power of 2)
+local texture_ratio = vmath.vector3(1,1,1)															--ratio sprite/atlas
+
+function get_pow2(v)	--closest power of 2
+	local x = 1
+	while x < v do		--While smaller (not eaqual or bigger)
+		x = x + x
+	end
+	return x
+end
+
+function init(self)
+	sprite_size = go.get("#sprite", "size")															--Get sprite speed
+	atlas_size = vmath.vector3(get_pow2(sprite_size.x), get_pow2(sprite_size.y), 1)					--Get texture size in atlas (closest power of 2)
+	texture_ratio = vmath.vector3(sprite_size.x/atlas_size.x, sprite_size.y/atlas_size.y, 1)		--Easy to read variable
+	sprite.set_constant("#sprite", "size", vmath.vector4(texture_ratio.x, texture_ratio.y, 1, 1))	--Set constant in material for texture part to use
+
+	local scale = go.get_scale()																	--Get scale of object scaling sprite
+	sprite.set_constant("#sprite", "scale", vmath.vector4(scale.x, scale.y, 1, 1))					--Set constant in material
+
+	self.offset = {x = 0, y = 0}																	--Variables for parallax control
+	msg.post(".", "acquire_input_focus")															--For example activate user input
+
+	self.speed = vmath.vector3(self.xSpeed /atlas_size.x *texture_ratio.x, self.ySpeed /atlas_size.y *texture_ratio.y, 1)	--Get parallax speed
+end
+
+function update(self, dt)
+	self.offset.x = self.offset.x + (sprite_size.x /8 *dt) *self.speed.x
+	sprite.set_constant("#sprite", "offset", vmath.vector4(self.offset.x, self.offset.y, 0, 0))		--Set material parallax offset
+end
+
+function on_input(self, action_id, action)
+	if action_id == hash("right")then
+		self.offset.x = self.offset.x + 1 * self.speed.x				--Move faster parallax layer
+	elseif action_id == hash("left") then
+		self.offset.x = self.offset.x - 1 * self.speed.x				--Move slower parallax layer
+	end
+end
