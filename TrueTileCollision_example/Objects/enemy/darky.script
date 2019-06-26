@@ -16,7 +16,7 @@ function update(self, dt)
 	else
 		button_left(self)
 	end
-	physics_update_walker_dt(self, dt)
+	physics_update_walker(self, dt)
 
 	--TURN AROUND
 	if self.trig_wall then
