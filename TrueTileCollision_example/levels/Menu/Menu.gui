@@ -1,7 +1,7 @@
 script: "/levels/Menu/Menu.gui_script"
 fonts {
   name: "system_font"
-  font: "/builtins/fonts/system_font.font"
+  font: "/main/font/menu.font"
 }
 background_color {
   x: 0.0
@@ -77,8 +77,8 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 1.25
-    y: 1.25
+    x: 2.0
+    y: 2.0
     z: 1.0
     w: 1.0
   }
@@ -98,7 +98,7 @@ nodes {
   blend_mode: BLEND_MODE_ALPHA
   text: "Platformer (blocks)"
   font: "system_font"
-  id: "text"
+  id: "text4"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
   pivot: PIVOT_CENTER
@@ -121,7 +121,7 @@ nodes {
   inherit_alpha: false
   alpha: 1.0
   outline_alpha: 1.0
-  shadow_alpha: 0.0
+  shadow_alpha: 1.0
   template_node_child: false
   text_leading: 1.0
   text_tracking: 0.0
@@ -194,8 +194,8 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 1.25
-    y: 1.25
+    x: 2.0
+    y: 2.0
     z: 1.0
     w: 1.0
   }
@@ -311,8 +311,8 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 1.25
-    y: 1.25
+    x: 2.0
+    y: 2.0
     z: 1.0
     w: 1.0
   }
@@ -428,8 +428,8 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 1.25
-    y: 1.25
+    x: 2.0
+    y: 2.0
     z: 1.0
     w: 1.0
   }
