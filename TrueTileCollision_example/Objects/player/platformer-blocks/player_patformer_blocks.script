@@ -26,8 +26,7 @@ end
 function update(self, dt)
 	--PHYSICS
 	physics_update_platformer_block(self, dt)
-	
-	
+		
 	--CAMERA = WORLD
 	self.WORLD_POS = lerp(self.WORLD_POS, self.START_POS - self.POS, 0.1)
 	go.set_position(round_2d_n(self.WORLD_POS, 1/3), "default:/world")
@@ -63,5 +62,7 @@ function on_input(self, action_id, action)
 		button_dash(self)
 	elseif action_id == start  then
 		button_start(self)
+	elseif action_id == hash("click") and action.pressed then		--hit player
+		got_hurt(self, -self.xflip *2, 3)							--already have one damage at time
 	end
 end

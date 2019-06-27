@@ -62,5 +62,7 @@ function on_input(self, action_id, action)
 		button_dash(self)
 	elseif action_id == start  then
 		button_start(self)
+	elseif action_id == hash("click") and action.pressed then		--hit player
+		got_hurt(self, -self.xflip *2, 3)							--already have one damage at time
 	end
 end
