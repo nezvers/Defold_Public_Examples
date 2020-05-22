@@ -37,6 +37,12 @@ end
 
 function update(self, dt)
 	self.offset.x = self.offset.x + (sprite_size.x /8 *dt) *self.speed.x
+	if math.abs(self.offset.x) >= 1 then
+		self.offset = {x = 0, y = self.offset.y}
+	end
+	if math.abs(self.offset.y) >= 1 then
+		self.offset = {x = self.offset.x, y = 0}
+	end
 	sprite.set_constant("#sprite", "offset", vmath.vector4(self.offset.x, self.offset.y, 0, 0))		--Set material parallax offset
 end
 
